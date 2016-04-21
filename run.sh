@@ -14,7 +14,7 @@ OPTIONS=" --debug --http-01-port 80 --renew-by-default  --agree-tos --standalone
 # Webmin server, linked to DNS2
 WEBMINSVR1=192.168.2.254
 
-scp /etc/letsencrypt/live/$DNS2/cert.pem :/etc/webmin/miniserv.cert
+scp /etc/letsencrypt/live/$DNS2/cert.pem WEBMINSVR1:/etc/webmin/miniserv.cert
 scp /etc/letsencrypt/live/$DNS2/chain.pem WEBMINSVR1:/etc/webmin/miniserv.chain
 scp /etc/letsencrypt/live/$DNS2/privkey.pem WEBMINSVR1:/etc/webmin/miniserv.pem
 ssh WEBMINSVR1 'service webmin restart'
@@ -57,4 +57,4 @@ scp pattern.sub $PFSENSESVR1:/tmp/
 
 # execute sed replace against the config.xml and reload the configuration
 
-ssh $PFSENSESVR1 'cp -rf /conf/config.xml /tmp/config.xml && sed -f /tmp/pattern.sub < /tmp/config.xml > /conf/config.xml && rm /tmp/config.cache  && /etc/rc.restart_webgui'
+ssh $PFSENSESVR1 'cp /conf/config.xml /tmp/config.xml && sed -f /tmp/pattern.sub < /tmp/config.xml > /conf/config.xml && rm /tmp/config.cache  && /etc/rc.restart_webgui'

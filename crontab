@@ -1,0 +1,1 @@
+0 1 1 */2 * /bin/bash /root/run.sh > /var/log/letsencrypt-renewal.log

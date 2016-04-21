@@ -20,17 +20,26 @@ scp /etc/letsencrypt/live/$DNS2/privkey.pem WEBMINSVR1:/etc/webmin/miniserv.pem
 ssh WEBMINSVR1 'service webmin restart'
 
 
+
 # HAProxy server cluster, linked to CN
 HAPROXYSVR1=192.168.2.230
 HAPROXYSVR2=192.168.2.231
 
 #openssl dhparam -out /etc/letsencrypt/live/$CN/dh.pem 2048
 cat /etc/letsencrypt/live/$CN/fullchain.pem /etc/letsencrypt/live/$CN/privkey.pem /etc/letsencrypt/live/$CN/dh.pem > /etc/letsencrypt/live/$CN/$CN.pem
-scp /root/$CN.pem HAPROXYSVR1:/etc/ssl/common/
-scp /root/$CN.pem HAPROXYSVR2:/etc/ssl/common/
+scp /etc/letsencrypt/live/$CN/$CN.pem HAPROXYSVR1:/etc/ssl/common/
+scp /etc/letsencrypt/live/$CN/$CN.pem HAPROXYSVR2:/etc/ssl/common/
 ssh HAPROXYSVR1 'service haproxy reload'
 ssh HAPROXYSVR2 'service haproxy reload'
 
+# Apache2 server, linked to CN
+APACHESVR1=192.168.2.232
+
+#openssl dhparam -out /etc/letsencrypt/live/$CN/dh.pem 2048
+cat /etc/letsencrypt/live/$CN/fullchain.pem /etc/letsencrypt/live/$CN/dh.pem > /etc/letsencrypt/live/$CN/$CN-chain.pem
+scp /etc/letsencrypt/live/$CN/$CN-chain.pem APACHESVR1:/etc/ssl/common/$CN.crt
+scp /etc/letsencrypt/live/$CN/privkey.pem APACHESVR1:/etc/ssl/common/$CN.key
+ssh APACHESVR1 'service apache2 restart'
 
 # PFSense server, linked to CN
 # pfsense server name or IP

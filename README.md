@@ -10,8 +10,11 @@ for the challenge and validate the certificate generation.
 The script supports
 
 Apache
+
 Haproxy
+
 Webmin
+
 PFSense
 
 PfSense has a sed script file template for replace the existing letsencrypt certificate.

@@ -1,3 +1,8 @@
+
+# Change the below line to regex your certificate name 
+# This would be the name you used to upload the first time.
+# hence it must exist prior to automating with these scripts
+
 /.*LetsEncrypt.*/{
 		N
 		/<crt>.*<\/crt>/{

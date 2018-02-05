@@ -50,11 +50,13 @@ CRT=/etc/letsencrypt/live/$CN/fullchain.pem
 KEY=/etc/letsencrypt/live/$CN/privkey.pem
 
 
-PHP=`which php`
+#PHP=`which php`
 # ENCERT=`$PHP encode.php  $CERT $CHAIN`
-ENCRT=`$PHP -r '$cert = file_get_contents( $argv[1] , true);  echo base64_encode("$cert");' $CRT`
-ENKEY=`$PHP -r '$cert = file_get_contents( $argv[1] , true);  echo base64_encode("$cert");' $KEY`
+#ENCRT=`$PHP -r '$cert = file_get_contents( $argv[1] , true);  echo base64_encode("$cert");' $CRT`
+#ENKEY=`$PHP -r '$cert = file_get_contents( $argv[1] , true);  echo base64_encode("$cert");' $KEY`
 
+ENCRT=$(cat $CRT | base64 -w 0)
+ENKEY=$(cat $KEY | base64  -w 0)
 
 # replace the placeholder string in the pattern template with certificate information.
 # awk is used because of the escape characters aren't passed via sed.

@@ -27,7 +27,7 @@ PFSense
 
 * PfSense has an attached sed template file for replacing the existing letsencrypt certificate files.
 You must have the certificate uploaded and configed to a name prior to use. Then you modify that file to regex your 
-named "Certificate" in pfesense and this will update and force a reload of the webui.
+named "Certificate" in pfsense and this will update and force a reload of the webui.
 Put that file (pattern.template) in the same directory as this run.sh.
 
 Modify for your use!
